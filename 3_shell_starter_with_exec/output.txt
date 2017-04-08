@@ -1,0 +1,43 @@
++ docker build -t asdf .
+Sending build context to Docker daemon  7.68 kB
+Step 1/6 : FROM ubuntu
+ ---> 4ca3a192ff2a
+Step 2/6 : RUN apt-get update  && apt-get install -y build-essential
+ ---> Using cache
+ ---> ebb039b46c58
+Step 3/6 : ADD app.c /
+ ---> Using cache
+ ---> 57e69ec2b8b1
+Step 4/6 : RUN gcc -o app app.c
+ ---> Using cache
+ ---> 1ee1d6d0315c
+Step 5/6 : ADD starter.sh /
+ ---> Using cache
+ ---> 1707d264d279
+Step 6/6 : CMD /starter.sh
+ ---> Using cache
+ ---> 8cd3dba30578
+Successfully built 8cd3dba30578
+++ docker run -d asdf
++ ID=e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
++ sleep 10
++ docker stop e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
+e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
++ docker logs e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
+do something
+replace the current program in the process with app.sh
++ echo 'do something'
++ echo 'replace the current program in the process with app.sh'
++ exec /app
+Finished loop run 0.
+Finished loop run 1.
+Finished loop run 2.
+Loop run was interrupted with 1 sec to go, finishing...
+Finished loop run 3.
+done.
++ echo 'Exit status should (and also is) 0:'
+Exit status should (and also is) 0:
++ docker inspect -f '{{.State.ExitCode}}' e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
+0
++ docker rm e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70
+e2b15d61f9ec716dd7bae794e0b3830a280d6d2e3391df73a24e50ed03fa4b70

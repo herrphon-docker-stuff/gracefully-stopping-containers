@@ -4,12 +4,13 @@ docker build -t asdf .
 
 ID=$(docker run -d asdf)
 
-sleep 5
+sleep 6
+docker kill --signal=SIGTERM $ID
 
-docker stop $ID
+sleep 1
+docker logs $ID
 
-echo "Exit status should (and also is) 0:"
-docker inspect -f '{{.State.ExitCode}}' $ID
+echo "Exit status should be 0: $(docker inspect -f '{{.State.ExitCode}}' $ID)"
 
 docker rm $ID
 

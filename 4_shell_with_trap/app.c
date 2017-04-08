@@ -21,8 +21,8 @@ int main(int argc, char *argv[])
     while (!done)
     {
         int t = sleep(3);
-        /* sleep returns the number of seconds left if
- *          * interrupted */
+        /* sleep returns the number of seconds left if *
+         * interrupted */
         while (t > 0)
         {
             printf("Loop run was interrupted with %d "
