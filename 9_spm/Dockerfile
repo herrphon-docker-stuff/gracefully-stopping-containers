@@ -5,15 +5,19 @@ RUN apt-get update  \
  && apt-get -y upgrade  \
  && apt-get install -y psmisc  \
                        build-essential \
+                       curl unzip \
+                       git golang-go \
  && rm -rf /var/lib/apt/lists/*
 
-ADD https://github.com/jwilder/forego/releases/download/v0.16.1/forego /usr/local/bin/forego
-RUN chmod u+x /usr/local/bin/forego 
-
+RUN mkdir /golang
+ENV GOPATH /golang
+ENV PATH $PATH:$GOPATH/bin
 ADD app.c /
 RUN gcc -o app app.c
 
-COPY     Procfile /
+RUN go get github.com/bytegust/spm/cmd/spm
 
-CMD  ["forego", "start", "-r"]
+COPY Procfile /
+
+CMD  ["goreman", "start"]
 
